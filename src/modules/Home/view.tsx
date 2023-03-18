@@ -1,15 +1,11 @@
-import { rapidApi } from "@/libs/htttp";
-import { NextPage } from "next";
-import { Button } from "react-bootstrap";
-import useSWR from 'swr'
-import { data } from './tmp-data'
+import { NextPage } from 'next'
+import { Button, Container } from 'react-bootstrap'
 
 const Home: NextPage = () => {
-  // const { data } = useSWR(`/shazam-events/list`, rapidApi.get, {revalidateOnFocus: false})
   return (
-    <div>
+    <Container>
       <Button>This is button</Button>
-    </div>
+    </Container>
   )
 }
 

@@ -7,18 +7,19 @@ import { Heart } from 'iconsax-react'
 import Shimmer from '@/components/Shimmer'
 
 type IProps = ComponentProps<'div'> & {
-  data: TSong | null
+  data?: TSong | null
+  onAddToPlaylist?: (song: TSong) => void
 }
 
-const SongCard: React.FC<IProps> = ({ data, ...props }) => {
+const SongCard: React.FC<IProps> = ({ data, onAddToPlaylist, ...props }) => {
   const [favourite, setFavourite] = useState<boolean>(data && data.isFavourite ? data.isFavourite : false)
   const handleFavourite = () => {
     const isFavourite = !favourite
     setFavourite(isFavourite)
 
-    const key = `fav-${data.key}`
+    const key = `fav-${data?.key}`
     if (isFavourite) {
-      localStorage.setItem(key, 1)
+      localStorage.setItem(key, '1')
     } else {
       localStorage.removeItem(key)
     }
@@ -35,7 +36,10 @@ const SongCard: React.FC<IProps> = ({ data, ...props }) => {
                 <Card.Title>{stringTruncate(data.title, 18)}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">{data.subtitle}</Card.Subtitle>
               </div>
-              <Heart color={favourite ? 'red' : '#aaa'} variant={favourite ? 'Bold' : 'Outline'} onClick={handleFavourite} />
+              <div className="bottomsheet">
+                <Heart color={favourite ? 'red' : '#aaa'} variant={favourite ? 'Bold' : 'Outline'} onClick={handleFavourite} />
+                {onAddToPlaylist && <span onClick={() => onAddToPlaylist(data)}>Add to playlist</span>}
+              </div>
             </Card.Body>
           </>
         ) : (

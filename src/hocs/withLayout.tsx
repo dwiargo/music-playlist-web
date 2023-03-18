@@ -6,7 +6,6 @@ const withLayout = (WrappedComponent: any) => {
       <>
         <Header />
         <WrappedComponent {...props} />
-        <footer>This is footer</footer>
       </>
     )
   }

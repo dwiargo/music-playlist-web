@@ -13,5 +13,13 @@ export const cssSongCard = css({
       flexDirection: 'column',
       justifyContent: 'space-between',
     },
+    '.bottomsheet': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      '*': {
+        cursor: 'pointer',
+      },
+    },
   },
 })
