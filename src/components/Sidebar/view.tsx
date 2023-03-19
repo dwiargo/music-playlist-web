@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { cssSidebar } from './style'
 import { useRouter } from 'next/router'
+import Logo from '../Logo'
 
 export const Sidebar = () => {
   const { pathname } = useRouter()

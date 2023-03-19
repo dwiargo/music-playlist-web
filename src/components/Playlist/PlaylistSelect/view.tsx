@@ -5,6 +5,7 @@ import { TPlaylist } from '../type'
 import PlaylistList from '../PlaylistList/view'
 import { USER_PLAYLIST_STORAGE_KEY } from '@/constant/env'
 import { TSong } from '@/components/Song/type'
+import SongCard from '@/components/Song/SongCard/view'
 
 type IProps = ComponentProps<'div'> & {
   show: boolean
@@ -42,10 +43,11 @@ const PlaylistSelect: React.FC<IProps> = ({ show, onHide, song }) => {
         <Modal.Title>Select Playlist</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>
+        <SongCard landscapeMode data={song} />
+        <p className="mt-4">
           {`Please select playlist for adding song `} <strong>{song?.title}</strong>
         </p>
-        <PlaylistList data={data as TPlaylist[]} onSelected={handleSelect} />
+        <PlaylistList data={data as TPlaylist[]} onSelected={handleSelect} asList />
       </Modal.Body>
     </Modal>
   )

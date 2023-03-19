@@ -9,9 +9,10 @@ import { Col, Row } from 'react-bootstrap'
 type IProps = ComponentProps<'div'> & {
   data: TSong[] | null
   showAddToPlaylist?: boolean
+  title?: string
 }
 
-const SongList: React.FC<IProps> = ({ data, showAddToPlaylist = false, ...props }) => {
+const SongList: React.FC<IProps> = ({ data, showAddToPlaylist = false, title, ...props }) => {
   const [showPlaylist, setShowPlaylist] = useState<boolean>(false)
   const [selectedSong, setSelectedSong] = useState<TSong | null>(null)
 
@@ -23,6 +24,7 @@ const SongList: React.FC<IProps> = ({ data, showAddToPlaylist = false, ...props 
   return (
     <>
       <div css={cssSongList} {...props}>
+        {title && <p className="title">{title}</p>}
         <Row xs={1} md={4} lg={5} className="g-4">
           {data
             ? data.map((song: TSong, i: any) => (

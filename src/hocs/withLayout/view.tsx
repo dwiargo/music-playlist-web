@@ -14,6 +14,11 @@ const withLayout = (WrappedComponent: any) => {
           <div className="content-wrapper">
             <WrappedComponent {...props} />
           </div>
+          <footer>
+            Image banner designed by{' '}
+            <a href="https://www.vecteezy.com/?utm_source=vecteezy-download&utm_medium=license-info-pdf&utm_campaign=license-info-document">Vecteezy.com</a> &
+            by <a href="https://www.pexels.com/photo/red-vinyl-record-3552948/">Stas Knop</a>
+          </footer>
         </section>
       </main>
     )

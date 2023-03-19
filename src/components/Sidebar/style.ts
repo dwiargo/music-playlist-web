@@ -9,10 +9,13 @@ export const cssSidebar = css({
   height: '100vh',
   color: '#c5c2f0',
   padding: 16,
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'column',
   nav: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 4,
+    gap: 16,
     a: {
       '&[data-active = "true"]': {
         fontWeight: '600',

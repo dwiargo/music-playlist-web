@@ -7,12 +7,13 @@ import { Col, Row } from 'react-bootstrap'
 type IProps = ComponentProps<'div'> & {
   data: TPlaylist[] | null
   onSelected?: (d: TPlaylist) => void
+  asList?: boolean
 }
 
-const PlaylistList: React.FC<IProps> = ({ data, onSelected, ...props }) => {
+const PlaylistList: React.FC<IProps> = ({ data, onSelected, asList = false, ...props }) => {
   return (
     <div css={cssPlaylistList} {...props}>
-      <Row xs={1} md={3} xl={4}>
+      <Row xs={1} md={asList ? 1 : 3} xl={asList ? 1 : 4}>
         {data
           ? data.map((song: TPlaylist, i: any) => (
               <Col key={`song-${i}`}>

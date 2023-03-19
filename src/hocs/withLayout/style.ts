@@ -9,6 +9,17 @@ export const cssWithLayout = css({
     '.content-wrapper': {
       paddingLeft: 24,
       paddingRight: 24,
+      minHeight: `calc(100% - 280px)`,
+    },
+  },
+  footer: {
+    paddingLeft: 24,
+    paddingRight: 24,
+    marginTop: 16,
+    marginBottom: 8,
+    fontSize: 10,
+    a: {
+      color: 'blue !important',
     },
   },
 })
