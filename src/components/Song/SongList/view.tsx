@@ -23,7 +23,7 @@ const SongList: React.FC<IProps> = ({ data, showAddToPlaylist = false, ...props 
   return (
     <>
       <div css={cssSongList} {...props}>
-        <Row xs={1} md={3} lg={4} className="g-4">
+        <Row xs={1} md={4} lg={5} className="g-4">
           {data
             ? data.map((song: TSong, i: any) => (
                 <Col key={`song-${i}`}>

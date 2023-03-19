@@ -16,6 +16,12 @@ export const cssSongCard = (landscapeMode: boolean) =>
         borderTopRightRadius: landscapeMode ? '0' : 'inherit',
         borderBottomRightRadius: landscapeMode ? '0' : 'inherit',
       },
+      '.card-title': {
+        fontSize: 14,
+      },
+      '.card-subtitle': {
+        fontSize: 12,
+      },
       '.card-body': {
         display: 'flex',
         flexDirection: 'column',
@@ -25,6 +31,7 @@ export const cssSongCard = (landscapeMode: boolean) =>
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        fontSize: 12,
         '*': {
           cursor: 'pointer',
         },
