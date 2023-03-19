@@ -1,20 +1,11 @@
 import Header from '@/components/Header'
 import { cssWithLayout } from './style'
 import Sidebar from '@/components/Sidebar'
-import Image from 'next/image'
 import Banner from '@/components/Banner'
 import { ToastProvider } from '@/hooks/toast'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 
 const withLayout = (WrappedComponent: any) => {
   const Wrapper = (props: any) => {
-    const { pathname } = useRouter()
-
-    // useEffect(() => {
-    //   window.scrollTo(0, 0)
-    // }, [pathname])
-
     return (
       <ToastProvider>
         <main css={cssWithLayout}>

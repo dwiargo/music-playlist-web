@@ -20,7 +20,7 @@ export const cssBanner = css({
     width: 'unset !important',
     aspectRatio: '1',
     transform: 'scaleX(-1)',
-    marginTop: '-10% !important',
+    marginTop: '-120px !important',
     '&:after': {
       content: '"designed by Vecteezy.com"',
       color: 'blue',
