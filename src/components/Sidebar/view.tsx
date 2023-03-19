@@ -26,7 +26,7 @@ export const Sidebar = () => {
             label: 'Favourite',
           },
         ].map((n: any, i: number) => (
-          <Link key={`nav-${i}`} href={n.path} data-active={pathname === n.path}>
+          <Link key={`nav-${i}`} href={n.path} data-active={pathname === n.path} scroll={true}>
             {n.label}
           </Link>
         ))}

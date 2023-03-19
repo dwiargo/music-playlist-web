@@ -6,6 +6,7 @@ import PlaylistList from '../PlaylistList/view'
 import { USER_PLAYLIST_STORAGE_KEY } from '@/constant/env'
 import { TSong } from '@/components/Song/type'
 import SongCard from '@/components/Song/SongCard/view'
+import { useToast } from '@/hooks/toast'
 
 type IProps = ComponentProps<'div'> & {
   show: boolean
@@ -16,6 +17,7 @@ type IProps = ComponentProps<'div'> & {
 const PLAYLIST_URL = '/user-playlist'
 const PlaylistSelect: React.FC<IProps> = ({ show, onHide, song }) => {
   const [keyword] = useState<string>('')
+  const toast = useToast()
   const { data } = useSWR(
     PLAYLIST_URL,
     () =>
@@ -34,6 +36,8 @@ const PlaylistSelect: React.FC<IProps> = ({ show, onHide, song }) => {
       item.songKeys = item.songKeys.filter((value, index, arr) => arr.indexOf(value) === index)
       localStorage.setItem(USER_PLAYLIST_STORAGE_KEY, JSON.stringify(data))
       mutate(PLAYLIST_URL)
+      toast.push(`Song ${song.title} has been addedd to playlist ${playlist.name}`)
+      onHide()
     }
   }
 

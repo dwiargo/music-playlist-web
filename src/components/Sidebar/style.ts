@@ -2,7 +2,8 @@ import { COLOR_PRIMARY } from '@/constant/theme'
 import { css } from '@emotion/react'
 
 export const cssSidebar = css({
-  position: 'sticky',
+  position: 'fixed',
+  left: 0,
   top: 0,
   backgroundColor: COLOR_PRIMARY,
   width: 240,
