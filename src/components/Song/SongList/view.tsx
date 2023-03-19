@@ -4,6 +4,7 @@ import { TSong } from '../type'
 import { cssSongList } from './style'
 import PlaylistSelect from '@/components/Playlist/PlaylistSelect/view'
 import { TPlaylist } from '@/components/Playlist/type'
+import { Col, Row } from 'react-bootstrap'
 
 type IProps = ComponentProps<'div'> & {
   data: TSong[] | null
@@ -22,11 +23,19 @@ const SongList: React.FC<IProps> = ({ data, showAddToPlaylist = false, ...props 
   return (
     <>
       <div css={cssSongList} {...props}>
-        {data
-          ? data.map((song: TSong, i: any) => (
-              <SongCard key={`song-${i}`} data={song} onAddToPlaylist={showAddToPlaylist ? handlePreAddToPlaylist : undefined} />
-            ))
-          : [...Array(12)].map((_d, i) => <SongCard key={`shimmer-${i}`} />)}
+        <Row xs={1} md={3} lg={4} className="g-4">
+          {data
+            ? data.map((song: TSong, i: any) => (
+                <Col key={`song-${i}`}>
+                  <SongCard data={song} onAddToPlaylist={showAddToPlaylist ? handlePreAddToPlaylist : undefined} />
+                </Col>
+              ))
+            : [...Array(12)].map((_d, i) => (
+                <Col key={`shimmer-${i}`}>
+                  <SongCard />
+                </Col>
+              ))}
+        </Row>
       </div>
 
       <PlaylistSelect show={showPlaylist} onHide={() => setShowPlaylist(false)} song={selectedSong || undefined} />

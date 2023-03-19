@@ -7,10 +7,9 @@ import { FormEvent, SyntheticEvent, useState } from 'react'
 import { Container, Form } from 'react-bootstrap'
 import Jumbotron from '@/components/Jumbotron/view'
 import PlaylistSelect from '@/components/Playlist/PlaylistSelect/view'
-import Image from 'next/image'
 
-const SONG_LIST_URL = `/songs/list-recommendations`
-const Search: NextPage = (props) => {
+const SONG_LIST_URL = `/songs/list-recommendations?favourite=1`
+const Favourite: NextPage = (props) => {
   const [tracks, setTracks] = useState<TSong[] | null>(null)
   const [keyword, setKeyword] = useState<string>('')
   const { data } = useSWR(SONG_LIST_URL, () => Promise.resolve(songData), {
@@ -21,13 +20,15 @@ const Search: NextPage = (props) => {
   })
 
   const prepopulateData = (dataSource: any) => {
-    return dataSource.map((d: TSong) => {
-      d.isFavourite = localStorage.getItem(`fav-${d.key}`) ? true : false
-      return d
-    })
+    return dataSource
+      .map((d: TSong) => {
+        d.isFavourite = localStorage.getItem(`fav-${d.key}`) ? true : false
+        return d
+      })
+      .filter((d: TSong) => d.isFavourite)
   }
 
-  const handleSearch = (e: FormEvent) => {
+  const handleFavourite = (e: FormEvent) => {
     e.preventDefault()
     e.stopPropagation()
 
@@ -36,13 +37,13 @@ const Search: NextPage = (props) => {
 
   return (
     <Container>
-      <Jumbotron title="Search" />
-      <Form onSubmit={handleSearch} className="mb-2 mt-2">
-        <Form.Control placeholder="Type search keyword here..." onChange={(e: any) => setKeyword(e.target.value)} />
+      <Jumbotron title="My Favourite" />
+      <Form onSubmit={handleFavourite} className="mb-2 mt-2">
+        <Form.Control placeholder="Type song title keyword here..." onChange={(e: any) => setKeyword(e.target.value)} />
       </Form>
       <SongList data={tracks} showAddToPlaylist />
     </Container>
   )
 }
 
-export default Search
+export default Favourite

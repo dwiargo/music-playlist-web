@@ -2,18 +2,29 @@ import { ComponentProps } from 'react'
 import PlaylistCard from '../PlaylistCard/view'
 import { TPlaylist } from '../type'
 import { cssPlaylistList } from './style'
+import { Col, Row } from 'react-bootstrap'
 
 type IProps = ComponentProps<'div'> & {
   data: TPlaylist[] | null
-  onSelect?: (d: TPlaylist) => void
+  onSelected?: (d: TPlaylist) => void
 }
 
-const PlaylistList: React.FC<IProps> = ({ data, onSelect, ...props }) => {
+const PlaylistList: React.FC<IProps> = ({ data, onSelected, ...props }) => {
   return (
     <div css={cssPlaylistList} {...props}>
-      {data
-        ? data.map((song: TPlaylist, i: any) => <PlaylistCard key={`song-${i}`} data={song} onClick={onSelect} />)
-        : [...Array(12)].map((_d, i) => <PlaylistCard key={`shimmer-${i}`} />)}
+      <Row xs={1} md={3} xl={4}>
+        {data
+          ? data.map((song: TPlaylist, i: any) => (
+              <Col key={`song-${i}`}>
+                <PlaylistCard data={song} onClick={onSelected} />
+              </Col>
+            ))
+          : [...Array(12)].map((_d, i) => (
+              <Col key={`song-${i}`}>
+                <PlaylistCard key={`shimmer-${i}`} />
+              </Col>
+            ))}
+      </Row>
     </div>
   )
 }

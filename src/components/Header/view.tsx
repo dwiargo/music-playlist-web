@@ -9,7 +9,7 @@ type IProps = ComponentProps<'header'>
 
 const Header: React.FC<IProps> = ({ ...props }) => {
   return (
-    <Navbar bg="light" css={cssHeader}>
+    <Navbar bg="dark" css={cssHeader}>
       <Container>
         <Navbar.Brand href="/">
           <p className="logo">
@@ -29,7 +29,7 @@ const Header: React.FC<IProps> = ({ ...props }) => {
               <Link href="/playlist">Playlist</Link>
             </Nav.Link>
             <Nav.Link>
-              <Link href="/favourites">Favourites</Link>
+              <Link href="/favourite">Favourite</Link>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

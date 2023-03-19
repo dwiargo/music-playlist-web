@@ -4,8 +4,9 @@ import { TPlaylist } from '../type'
 import { cssPlaylistCard } from './style'
 import Shimmer from '@/components/Shimmer'
 import { stringTruncate } from '@/libs/utils'
+import { MusicCircle, MusicPlaylist } from 'iconsax-react'
 
-type IProps = ComponentProps<'div'> & {
+type IProps = {
   data?: TPlaylist
   onClick?: (d: TPlaylist) => void
 }
@@ -19,6 +20,9 @@ const PlaylistCard: React.FC<IProps> = ({ data, onClick, ...props }) => {
           if (onClick && data) onClick(data)
         }}
       >
+        <div className="card-icon">
+          <MusicCircle size={48} variant="Outline" color="#ddd" />
+        </div>
         {data ? (
           <Card.Body>
             <Card.Title>{stringTruncate(data.name, 24)}</Card.Title>

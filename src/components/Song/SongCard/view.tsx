@@ -9,9 +9,10 @@ import Shimmer from '@/components/Shimmer'
 type IProps = ComponentProps<'div'> & {
   data?: TSong | null
   onAddToPlaylist?: (song: TSong) => void
+  landscapeMode?: boolean
 }
 
-const SongCard: React.FC<IProps> = ({ data, onAddToPlaylist, ...props }) => {
+const SongCard: React.FC<IProps> = ({ data, onAddToPlaylist, landscapeMode = false, ...props }) => {
   const [favourite, setFavourite] = useState<boolean>(data && data.isFavourite ? data.isFavourite : false)
   const handleFavourite = () => {
     const isFavourite = !favourite
@@ -26,7 +27,7 @@ const SongCard: React.FC<IProps> = ({ data, onAddToPlaylist, ...props }) => {
   }
 
   return (
-    <div css={cssSongCard} {...props}>
+    <div css={cssSongCard(landscapeMode)} {...props}>
       <Card className="song-card">
         {data ? (
           <>

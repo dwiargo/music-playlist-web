@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react'
-import { cssJumbotron } from './style'
+import { cssJumbotron, cssJumbotronImage } from './style'
 
 type IProps = ComponentProps<'div'> & {
   title: string
@@ -7,9 +7,11 @@ type IProps = ComponentProps<'div'> & {
 
 const Jumbotron: React.FC<IProps> = ({ title, ...props }) => {
   return (
-    <div css={cssJumbotron} {...props}>
-      <h1>{title}</h1>
-    </div>
+    <>
+      <div css={cssJumbotron} {...props}>
+        <h1>{title}</h1>
+      </div>
+    </>
   )
 }
 

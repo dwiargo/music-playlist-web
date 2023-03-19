@@ -45,7 +45,7 @@ const PlaylistSelect: React.FC<IProps> = ({ show, onHide, song }) => {
         <p>
           {`Please select playlist for adding song `} <strong>{song?.title}</strong>
         </p>
-        <PlaylistList data={data as TPlaylist[]} onSelect={handleSelect} />
+        <PlaylistList data={data as TPlaylist[]} onSelected={handleSelect} />
       </Modal.Body>
     </Modal>
   )

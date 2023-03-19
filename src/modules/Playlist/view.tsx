@@ -9,11 +9,14 @@ import useSWR, { mutate } from 'swr'
 import { cssPlaylist } from './style'
 import PlaylistCard from '@/components/Playlist/PlaylistCard'
 import PlaylistList from '@/components/Playlist/PlaylistList/view'
+import PlaylistDetail from '@/components/Playlist/PlaylistDetail'
 
 const PLAYLIST_URL = '/user-playlist'
 const Playlist: NextPage = () => {
   const [showForm, setShowForm] = useState<boolean>(false)
   const [keyword, setKeyword] = useState<string>('')
+  const [selectedPlaylist, setSelectedPlaylist] = useState<TPlaylist | null>(null)
+  const [showDetail, setShowDetail] = useState<boolean>(false)
 
   const { data } = useSWR(
     PLAYLIST_URL,
@@ -45,13 +48,28 @@ const Playlist: NextPage = () => {
           </Form>
           <Button onClick={() => setShowForm(true)}>Add</Button>
         </header>
-        <PlaylistList data={data as TPlaylist[]} />
+        <PlaylistList
+          data={data as TPlaylist[]}
+          onSelected={(p: TPlaylist) => {
+            setSelectedPlaylist(p)
+            setShowDetail(true)
+          }}
+        />
       </Container>
       <PlaylistForm
         show={showForm}
         onHide={() => {
           setShowForm(false)
           handleSearch()
+        }}
+      />
+      <PlaylistDetail
+        data={selectedPlaylist || undefined}
+        show={showDetail}
+        onHide={(reload?: boolean) => {
+          setShowDetail(false)
+          setTimeout(setSelectedPlaylist, 500)
+          if (reload) mutate(PLAYLIST_URL)
         }}
       />
     </main>
