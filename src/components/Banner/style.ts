@@ -51,4 +51,10 @@ export const cssBanner = css({
       marginBottom: 120,
     },
   },
+  ['@media (max-width: 576px)']: {
+    '.banner-foreground-img': {
+      height: `360px !important`,
+      marginTop: '0px !important',
+    },
+  },
 })

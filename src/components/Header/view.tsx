@@ -1,6 +1,6 @@
 import { ComponentProps, useState } from 'react'
 import { cssHeader } from './style'
-import { Button, Modal, Nav, Navbar } from 'react-bootstrap'
+import { Button, Modal, Nav, NavDropdown, Navbar } from 'react-bootstrap'
 import Link from 'next/link'
 import { Logout } from 'iconsax-react'
 import { signOut, useSession } from 'next-auth/react'
@@ -16,18 +16,20 @@ const Header: React.FC<IProps> = ({ className, ...props }) => {
       <Navbar bg="dark" css={cssHeader} className={className}>
         <Navbar.Collapse id="main-menu-nav">
           <Nav className="me-auto">
-            <Nav.Link>
-              <Link href="/">Home</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link href="/search">Search</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link href="/playlist">Playlist</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link href="/favourite">Favourite</Link>
-            </Nav.Link>
+            <NavDropdown title="Menu">
+              <NavDropdown.Item>
+                <Link href="/">Home</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link href="/search">Search</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link href="/playlist">Playlist</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link href="/favourite">Favourite</Link>
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
           {session && (
             <div className="profile">

@@ -8,6 +8,7 @@ export const cssHeader = css({
   backgroundColor: `${COLOR_PRIMARY} !important`,
   display: 'flex !important',
   alignItems: 'center',
+  zIndex: 300,
   '.logo': {
     marginBottom: 0,
     fontWeight: 800,
