@@ -7,6 +7,7 @@ import { USER_PLAYLIST_STORAGE_KEY } from '@/constant/env'
 import { TSong } from '@/components/Song/type'
 import SongCard from '@/components/Song/SongCard/view'
 import { useToast } from '@/hooks/toast'
+import { useSession } from 'next-auth/react'
 
 type IProps = ComponentProps<'div'> & {
   show: boolean
@@ -16,13 +17,15 @@ type IProps = ComponentProps<'div'> & {
 
 const PLAYLIST_URL = '/user-playlist'
 const PlaylistSelect: React.FC<IProps> = ({ show, onHide, song }) => {
+  const { data: session } = useSession()
   const [keyword] = useState<string>('')
   const toast = useToast()
   const { data } = useSWR(
     PLAYLIST_URL,
     () =>
       new Promise((resolve) => {
-        const storageData: string | null = localStorage.getItem(USER_PLAYLIST_STORAGE_KEY)
+        const storageKey = `${session?.user?.email}-${USER_PLAYLIST_STORAGE_KEY}`
+        const storageData: string | null = localStorage.getItem(storageKey)
         const preData: TPlaylist[] = storageData ? JSON.parse(storageData) : []
         const result = keyword ? preData.filter((d: TPlaylist) => d.name.match(new RegExp(keyword, 'ig'))) : preData
         resolve(result)
@@ -32,9 +35,10 @@ const PlaylistSelect: React.FC<IProps> = ({ show, onHide, song }) => {
   const handleSelect = (playlist: TPlaylist) => {
     const item = (data as TPlaylist[]).find((elem: TPlaylist) => elem.id === playlist.id)
     if (item && song) {
+      const storageKey = `${session?.user?.email}-${USER_PLAYLIST_STORAGE_KEY}`
       item.songKeys.push(song.key)
       item.songKeys = item.songKeys.filter((value, index, arr) => arr.indexOf(value) === index)
-      localStorage.setItem(USER_PLAYLIST_STORAGE_KEY, JSON.stringify(data))
+      localStorage.setItem(storageKey, JSON.stringify(data))
       mutate(PLAYLIST_URL)
       toast.push(`Song ${song.title} has been addedd to playlist ${playlist.name}`)
       onHide()

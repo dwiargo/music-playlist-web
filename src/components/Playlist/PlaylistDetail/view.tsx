@@ -7,6 +7,7 @@ import SongCard from '@/components/Song/SongCard/view'
 import { useEffect, useState } from 'react'
 import { USER_PLAYLIST_STORAGE_KEY } from '@/constant/env'
 import PlaylistCard from '../PlaylistCard'
+import { useSession } from 'next-auth/react'
 
 type IProps = {
   show: boolean
@@ -17,6 +18,7 @@ type IProps = {
 const SONG_LIST_URL = `/songs/list-recommendations`
 export const PlaylistDetail: React.FC<IProps> = ({ show, onHide, data }) => {
   const [tracks, setTracks] = useState<TSong[]>([])
+  const { data: session } = useSession()
 
   useSWR(data ? SONG_LIST_URL : null, () => Promise.resolve(songData), {
     onSuccess: (response) => {
@@ -33,10 +35,11 @@ export const PlaylistDetail: React.FC<IProps> = ({ show, onHide, data }) => {
   })
 
   const handleRemove = () => {
-    const storageData: string | null = localStorage.getItem(USER_PLAYLIST_STORAGE_KEY)
+    const storageKey = `${session?.user?.email}-${USER_PLAYLIST_STORAGE_KEY}`
+    const storageData: string | null = localStorage.getItem(storageKey)
     const preData: TPlaylist[] = storageData ? JSON.parse(storageData) : []
     const result = preData.filter((d: TPlaylist) => d.id !== data?.id)
-    localStorage.setItem(USER_PLAYLIST_STORAGE_KEY, JSON.stringify(result))
+    localStorage.setItem(storageKey, JSON.stringify(result))
     onHide(true)
   }
 
@@ -59,9 +62,11 @@ export const PlaylistDetail: React.FC<IProps> = ({ show, onHide, data }) => {
         )}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={handleRemove}>
-          Remove
-        </Button>
+        {data?.name !== 'Default Playlist' && (
+          <Button variant="danger" onClick={handleRemove}>
+            Remove
+          </Button>
+        )}
         <Button onClick={() => onHide()}>Close</Button>
       </Modal.Footer>
     </Modal>

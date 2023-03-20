@@ -5,6 +5,7 @@ import { cssSongCard } from './style'
 import { stringTruncate } from '@/libs/utils'
 import { Heart } from 'iconsax-react'
 import Shimmer from '@/components/Shimmer'
+import { useSession } from 'next-auth/react'
 
 type IProps = ComponentProps<'div'> & {
   data?: TSong | null
@@ -13,12 +14,13 @@ type IProps = ComponentProps<'div'> & {
 }
 
 const SongCard: React.FC<IProps> = ({ data, onAddToPlaylist, landscapeMode = false, ...props }) => {
+  const { data: session } = useSession()
   const [favourite, setFavourite] = useState<boolean>(data && data.isFavourite ? data.isFavourite : false)
   const handleFavourite = () => {
     const isFavourite = !favourite
     setFavourite(isFavourite)
 
-    const key = `fav-${data?.key}`
+    const key = `${session?.user?.email}-fav-${data?.key}`
     if (isFavourite) {
       localStorage.setItem(key, '1')
     } else {

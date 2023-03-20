@@ -6,6 +6,8 @@ export const cssHeader = css({
   top: 0,
   color: 'white',
   backgroundColor: `${COLOR_PRIMARY} !important`,
+  display: 'flex !important',
+  alignItems: 'center',
   '.logo': {
     marginBottom: 0,
     fontWeight: 800,
@@ -20,6 +22,18 @@ export const cssHeader = css({
       textTransform: 'uppercase',
       fontSize: 11,
       letterSpacing: '.2em',
+    },
+  },
+  '.navbar-collapse ': {
+    flex: 'none !important',
+  },
+  '.profile': {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: 16,
+    p: {
+      marginBottom: 0,
+      marginRight: 8,
     },
   },
 })

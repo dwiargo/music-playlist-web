@@ -2,6 +2,7 @@ import { Button, Form, Modal } from 'react-bootstrap'
 import { TPlaylist } from '../type'
 import { useEffect, useState } from 'react'
 import { USER_PLAYLIST_STORAGE_KEY } from '@/constant/env'
+import { useSession } from 'next-auth/react'
 
 type IProps = {
   show: boolean
@@ -17,6 +18,7 @@ const initialValue: TPlaylist = {
 
 const PlaylistForm: React.FC<IProps> = ({ show, onHide, data }) => {
   const [formValue, setFormValue] = useState<TPlaylist>(initialValue)
+  const { data: session } = useSession()
 
   const handleChange = (e: any, key: string) => {
     setFormValue((value: TPlaylist) => {
@@ -26,8 +28,9 @@ const PlaylistForm: React.FC<IProps> = ({ show, onHide, data }) => {
   }
 
   const handleSubmit = () => {
-    if (formValue.name) {
-      const userPlaylistOnStorage = localStorage.getItem(USER_PLAYLIST_STORAGE_KEY)
+    if (formValue.name && formValue.name !== 'Default Playlist') {
+      const storageKey = `${session?.user?.email}-${USER_PLAYLIST_STORAGE_KEY}`
+      const userPlaylistOnStorage = localStorage.getItem(storageKey)
       const userPlaylist: TPlaylist[] = userPlaylistOnStorage ? JSON.parse(userPlaylistOnStorage) : []
       const currentItem = userPlaylist.find((elem: TPlaylist) => elem.id === formValue.id)
       if (currentItem) {
@@ -39,7 +42,7 @@ const PlaylistForm: React.FC<IProps> = ({ show, onHide, data }) => {
         })
       }
 
-      localStorage.setItem(USER_PLAYLIST_STORAGE_KEY, JSON.stringify(userPlaylist))
+      localStorage.setItem(storageKey, JSON.stringify(userPlaylist))
       onHide()
     } else {
     }

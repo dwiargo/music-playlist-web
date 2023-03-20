@@ -10,6 +10,7 @@ import { cssPlaylist } from './style'
 import PlaylistCard from '@/components/Playlist/PlaylistCard'
 import PlaylistList from '@/components/Playlist/PlaylistList/view'
 import PlaylistDetail from '@/components/Playlist/PlaylistDetail'
+import { useSession } from 'next-auth/react'
 
 const PLAYLIST_URL = '/user-playlist'
 const Playlist: NextPage = () => {
@@ -17,13 +18,23 @@ const Playlist: NextPage = () => {
   const [keyword, setKeyword] = useState<string>('')
   const [selectedPlaylist, setSelectedPlaylist] = useState<TPlaylist | null>(null)
   const [showDetail, setShowDetail] = useState<boolean>(false)
+  const { data: session } = useSession()
 
   const { data } = useSWR(
     PLAYLIST_URL,
     () =>
       new Promise((resolve) => {
-        const storageData: string | null = localStorage.getItem(USER_PLAYLIST_STORAGE_KEY)
+        const storageKey = `${session?.user?.email}-${USER_PLAYLIST_STORAGE_KEY}`
+        const storageData: string | null = localStorage.getItem(storageKey)
         const preData: TPlaylist[] = storageData ? JSON.parse(storageData) : []
+        if (preData.length === 0) {
+          preData.push({
+            name: 'Default Playlist',
+            songKeys: [],
+            id: new Date().getTime().toString(),
+          })
+          localStorage.setItem(storageKey, JSON.stringify(preData))
+        }
         const result = keyword ? preData.filter((d: TPlaylist) => d.name.match(new RegExp(keyword, 'ig'))) : preData
         resolve(result)
       })
