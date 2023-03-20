@@ -6,15 +6,15 @@ import { TSong } from '@/components/Song/type'
 import { FormEvent, SyntheticEvent, useState } from 'react'
 import { Container, Form } from 'react-bootstrap'
 import Jumbotron from '@/components/Jumbotron/view'
-import PlaylistSelect from '@/components/Playlist/PlaylistSelect/view'
+import { rapidApi } from '@/libs/htttp'
 
-const SONG_LIST_URL = `/songs/list-recommendations?favourite=1`
+const SONG_LIST_URL = `/songs/list-recommendations?key=484129036&locale=en-US&path=favourite`
 const Favourite: NextPage = (props) => {
   const [tracks, setTracks] = useState<TSong[] | null>(null)
   const [keyword, setKeyword] = useState<string>('')
-  const { data } = useSWR(SONG_LIST_URL, () => Promise.resolve(songData), {
+  useSWR(SONG_LIST_URL, rapidApi.get, {
     onSuccess: (response: any) => {
-      const preData = keyword ? response.tracks.filter((d: TSong) => d.title.match(new RegExp(keyword, 'ig'))) : response.tracks
+      const preData = keyword ? response.data.tracks.filter((d: TSong) => d.title.match(new RegExp(keyword, 'ig'))) : response.data.tracks
       setTracks(prepopulateData(preData))
     },
   })

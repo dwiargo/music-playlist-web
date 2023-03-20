@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
 ### Env variable
@@ -7,7 +5,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, create .env.local file in root directory, then add some variable:
 
 ```
-
+NEXT_PUBLIC_RAPID_API_KEY=YOUR_RAPID_API_KEY
+NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=YOUR_KEYCLOAK_CLIENT_ID
+NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET=YOUR_KEYCLOAK_CLIENT_SECRET
+NEXT_PUBLIC_KEYCLOAK_URL=YOUR_KEYCLOAK_URL
+NEXT_PUBLIC_KEYCLOAK_REALM=YOUR_KEYCLOAK_REALM
 ```
 
 ### Keycloak

@@ -50,9 +50,6 @@ export const PlaylistDetail: React.FC<IProps> = ({ show, onHide, data }) => {
 
   return (
     <Modal show={show} onHide={onHide}>
-      {/* <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>{data?.name}</Modal.Title>
-      </Modal.Header> */}
       <Modal.Body>
         <PlaylistCard data={data} />
         {tracks.length > 0 ? (
