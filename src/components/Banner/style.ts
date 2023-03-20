@@ -16,6 +16,7 @@ export const cssBanner = css({
     objectFit: 'cover',
   },
   '.banner-foreground-img': {
+    pointerEvents: 'none',
     height: '215% !important',
     width: 'unset !important',
     aspectRatio: '1',
@@ -43,6 +44,11 @@ export const cssBanner = css({
     '> h3': {
       fontSize: 16,
       opacity: 0.72,
+    },
+  },
+  ['@media (max-width: 768px)']: {
+    '.headline': {
+      marginBottom: 120,
     },
   },
 })

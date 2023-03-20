@@ -10,9 +10,20 @@ export const cssSidebar = css({
   height: '100vh',
   color: '#c5c2f0',
   padding: 16,
+  paddingTop: 288,
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   flexDirection: 'column',
+  '.profile': {
+    marginBottom: 32,
+    '.greeting': {
+      marginBottom: 1,
+    },
+    p: {
+      fontSize: 11,
+      cursor: 'pointer',
+    },
+  },
   nav: {
     display: 'flex',
     flexDirection: 'column',

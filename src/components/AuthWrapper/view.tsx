@@ -2,15 +2,15 @@ import { useEffect } from 'react'
 import { signIn, useSession } from 'next-auth/react'
 
 const AuthWrapper = (props: any) => {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
 
   useEffect(() => {
-    console.log(session)
-    console.log(session)
-    // if (!session) signIn()
-  }, [])
+    if (status !== 'loading' && status !== 'authenticated') {
+      signIn()
+    }
+  }, [status])
 
-  return props.children
+  return status === 'loading' ? <div>wait for authentication...</div> : props.children
 }
 
 export default AuthWrapper
