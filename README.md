@@ -46,7 +46,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 #### Playlist detail
 
-![My Image](public/screenshots/04-playlist-detail.png)
+![My Image](public/screenshots/04_playlist-detail.png)
 
 #### Search
 
