@@ -7,11 +7,14 @@ import { FormEvent, SyntheticEvent, useState } from 'react'
 import { Container, Form } from 'react-bootstrap'
 import Jumbotron from '@/components/Jumbotron/view'
 import { rapidApi } from '@/libs/htttp'
+import { useSession } from 'next-auth/react'
 
 const SONG_LIST_URL = `/songs/list-recommendations?key=484129036&locale=en-US&path=favourite`
 const Favourite: NextPage = (props) => {
   const [tracks, setTracks] = useState<TSong[] | null>(null)
   const [keyword, setKeyword] = useState<string>('')
+  const { data: session } = useSession()
+
   useSWR(SONG_LIST_URL, rapidApi.get, {
     onSuccess: (response: any) => {
       const preData = keyword ? response.data.tracks.filter((d: TSong) => d.title.match(new RegExp(keyword, 'ig'))) : response.data.tracks
@@ -22,7 +25,7 @@ const Favourite: NextPage = (props) => {
   const prepopulateData = (dataSource: any) => {
     return dataSource
       .map((d: TSong) => {
-        d.isFavourite = localStorage.getItem(`fav-${d.key}`) ? true : false
+        d.isFavourite = localStorage.getItem(`${session?.user?.email}-fav-${d.key}`) ? true : false
         return d
       })
       .filter((d: TSong) => d.isFavourite)

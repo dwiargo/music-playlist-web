@@ -29,3 +29,33 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+### Screenshots
+
+#### Home page
+
+![My Image](public/screenshots/01_home.png)
+
+#### Playlist page
+
+![My Image](public/screenshots/02_playlist.png)
+
+#### Add song to playlist
+
+![My Image](public/screenshots/03_add-to-playlist.png)
+
+#### Playlist detail
+
+![My Image](public/screenshots/04-playlist-detail.png)
+
+#### Search
+
+![My Image](public/screenshots/06_search.png)
+
+#### Favourite
+
+![My Image](public/screenshots/07_favourite.png)
+
+#### Mobile view
+
+![My Image](public/screenshots/05_home-mobile.png)
